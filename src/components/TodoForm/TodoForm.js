@@ -1,5 +1,5 @@
 import React from "react";
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'react-uuid'
 
 class TodoForm extends React.Component{
 
@@ -24,8 +24,9 @@ class TodoForm extends React.Component{
         e.preventDefault();
         this.setState({
             task:this.state.task,
-            id: uuidv4()
+            id: uuid()
         });
+        console.log(this.state.id);
         this.props.addTodo(this.state);
 
         //reset form
