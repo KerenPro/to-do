@@ -1,3 +1,4 @@
+import {Button, TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import uuid from 'react-uuid';
 
@@ -23,10 +24,16 @@ function TodoForm(props) {
         setTodo({...todo, task: ""});
     }
 
+    const todoFormStyle = {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center"
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input name="task" type="text" value={todo.task} onChange={handleTaskInputChange}/>
-            <button type="submit">Submit</button>
+        <form className="todo-form" onSubmit={handleSubmit} style={todoFormStyle}>
+            <TextField label="Task" name="task" type="text" value={todo.task} onChange={handleTaskInputChange}/>
+            <Button type="submit">Submit</Button>
         </form>
     );
 }
