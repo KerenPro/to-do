@@ -1,4 +1,4 @@
-#To-Do List using React
+# To-Do List using React
 ## Why this?
 I'm here to learn React, so I chose a simple project to start my journey
 
