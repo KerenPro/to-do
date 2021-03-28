@@ -1,44 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import uuid from 'react-uuid';
 
-class TodoForm extends React.Component{
+function TodoForm(props) {
 
-    constructor(props) {
-        super(props);
+    const [todo, setTodo] = useState({
+        id: "",
+        task: "",
+        completed: false 
+    });
 
-        this.state ={
-            task: "",
-            completed: false
+    function handleTaskInputChange(e){
+        setTodo({...todo, task: e.target.value});
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        if(todo.task.trim()){
+            props.addTodo({...todo, id:uuid()});
         }
 
-        this.handleTaskInputChange=this.handleTaskInputChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        //reset task input
+        setTodo({...todo, task: ""});
     }
 
-    handleTaskInputChange(e){
-        this.setState({task:e.target.value});
-    }
-
-    handleSubmit(e){
-        e.preventDefault();
-        this.props.addTodo(Object.assign({}, this.state, {id: uuid()}));
-
-        //reset form
-        this.setState({
-            id: "",
-            task: ""
-        })
-    }
-
-    render () {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input name="task" type="text" value={this.state.task} onChange={this.handleTaskInputChange}/>
-                <button type="submit">Submit</button>
-            </form>
-        );
-    }
-
+    return (
+        <form onSubmit={handleSubmit}>
+            <input name="task" type="text" value={todo.task} onChange={handleTaskInputChange}/>
+            <button type="submit">Submit</button>
+        </form>
+    );
 }
 
 export default TodoForm;

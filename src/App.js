@@ -1,37 +1,55 @@
 import './App.css';
-import React from "react";
+import React, {useState, useEffect} from "react";
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
 
-class App extends React.Component{
+const LOCAL_STORAGE_KEY = "react-todo-list-todos";
 
-    constructor(props) {
-        super(props);
+function App() {
 
-        this.state = {
-            todos: []
+    const [todos, setTodos] = useState([]);
+
+    useEffect(() => {
+        const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        if (storageTodos){
+            setTodos(storageTodos);
         }
+    }, []);
 
-        this.addTodo=this.addTodo.bind(this);
+    useEffect(()=> {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+    }, [todos]);
+
+    function addTodo(todo){
+        setTodos ([todo, ...todos]);
     }
 
-    addTodo(todo){
-        let todoList = this.state.todos;
-        todoList.push(todo);
-        this.setState({todos:todoList});
+    function toggleComplete(id){
+        setTodos(
+            todos.map(todo => {
+                if (todo.id === id){
+                    return {
+                        ...todo, completed:!todo.completed
+                    }
+                }
+                return todo;
+            })
+        )
     }
 
-    render () {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <p>React Todo</p>
-                </header>
-                <TodoForm addTodo={this.addTodo}/>
-                <TodoList todos={this.state.todos}/>
-            </div>
-        );
+    function removeTodo (id){
+        setTodos(todos.filter(todo => todo.id !== id))
     }
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <p>React Todo</p>
+                <TodoForm addTodo={addTodo}/>
+                <TodoList todos={todos} toggleComplete={toggleComplete} removeTodos={removeTodo} />
+            </header>
+        </div>
+    );
 }
 
 export default App;
