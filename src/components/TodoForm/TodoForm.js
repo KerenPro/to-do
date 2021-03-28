@@ -1,5 +1,5 @@
 import React from "react";
-import uuid from 'react-uuid'
+import uuid from 'react-uuid';
 
 class TodoForm extends React.Component{
 
@@ -7,7 +7,6 @@ class TodoForm extends React.Component{
         super(props);
 
         this.state ={
-            id: "",
             task: "",
             completed: false
         }
@@ -22,12 +21,7 @@ class TodoForm extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        this.setState({
-            task:this.state.task,
-            id: uuid()
-        });
-        console.log(this.state.id);
-        this.props.addTodo(this.state);
+        this.props.addTodo(Object.assign({}, this.state, {id: uuid()}));
 
         //reset form
         this.setState({
