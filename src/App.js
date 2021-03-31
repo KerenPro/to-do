@@ -1,13 +1,21 @@
-import Typography from "@material-ui/core/Typography";
-import './App.css';
 import React, {useState, useEffect} from "react";
+import Typography from "@material-ui/core/Typography";
+import {makeStyles} from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import './App.css';
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
+
+  const useStyles = makeStyles((theme) => ({
+    Container: {
+        backgroundColor: theme.palette.background.main
+    }
+  }));
 
 const LOCAL_STORAGE_KEY = "react-todo-list-todos";
 
 function App() {
-
+    const classes = useStyles();
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
@@ -43,11 +51,13 @@ function App() {
     }
 
     return (
-        <div className="App">
-                <Typography style={{padding:16}} variant="h1">React Todo</Typography>
-                <TodoForm addTodo={addTodo}/>
-                <TodoList todos={todos} toggleComplete={toggleComplete} removeTodos={removeTodo} />
-        </div>
+           <Container className={classes.Container}>
+                <div className="App">
+                    <Typography style={{padding:16}} variant="h1">React Todo</Typography>
+                    <TodoForm addTodo={addTodo}/>
+                    <TodoList todos={todos} toggleComplete={toggleComplete} removeTodo={removeTodo} />
+                </div>
+            </Container>
     );
 }
 
