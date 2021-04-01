@@ -9,6 +9,9 @@ import TodoList from "./components/TodoList/TodoList";
   const useStyles = makeStyles((theme) => ({
     Container: {
         backgroundColor: theme.palette.background.main
+    },
+    Title: {
+        color: theme.palette.primary.main
     }
   }));
 
@@ -51,12 +54,14 @@ function App() {
     }
 
     return (
-           <Container className={classes.Container}>
-                <div className="App">
-                    <Typography style={{padding:16}} variant="h1">React Todo</Typography>
-                    <TodoForm addTodo={addTodo}/>
-                    <TodoList todos={todos} toggleComplete={toggleComplete} removeTodo={removeTodo} />
-                </div>
+           <Container >
+               <Container className={classes.Container}>
+                    <div className="App">
+                        <Typography style={{padding:16}} variant="h1" className={classes.Title}>React Todo</Typography>
+                        <TodoForm addTodo={addTodo}/>
+                        <TodoList todos={todos} toggleComplete={toggleComplete} removeTodo={removeTodo} />
+                    </div>
+                </Container>
             </Container>
     );
 }

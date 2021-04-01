@@ -1,14 +1,19 @@
 .App {
   text-align: center;
   display: flex;
-  height: 100%;
+  height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 5;
 }
 
 body, html, #root{
-  height: 100%;
+  height: 100vh;
+}
+
+#root {
+  background-image: url("images/rootBg.jpg");
 }
 
 li {
